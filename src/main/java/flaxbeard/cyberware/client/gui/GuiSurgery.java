@@ -250,17 +250,12 @@ public class GuiSurgery extends GuiContainer
 	private float[] lastDownX = new float[5];
 	private float rotateVelocity = 0;
 	
-	private PageConfiguration[] configs = new PageConfiguration[25];
+	private static final PageConfiguration[] CONFIGS = createConfigs();
 	List<SlotSurgery> visibleSlots = new ArrayList<>();
 	private int parent;
-	
-	public GuiSurgery(InventoryPlayer inventoryPlayer, TileEntitySurgery surgery)
-	{
-		super(new ContainerSurgery(inventoryPlayer, surgery));
-		
-		this.surgery = surgery;
-		this.ySize = 222;
-		
+
+	private static PageConfiguration[] createConfigs() {
+		PageConfiguration[] configs = new PageConfiguration[25];
 		configs[0] = new PageConfiguration(0, 0, 0, 50, 35, 35, -50, 10);
 		configs[1] = new PageConfiguration(50, 0, 210, 150, 0, 0, -150, 0);
 		configs[2] = new PageConfiguration(15, 0, 100, 130, 0, 0, -150, 0);
@@ -269,7 +264,6 @@ public class GuiSurgery extends GuiContainer
 		configs[5] = new PageConfiguration(-70, 0, 10, 130, 0, 0, -150, 0);
 		configs[6] = new PageConfiguration(70, 0, 10, 130, 0, 0, -150, 0);
 		configs[7] = new PageConfiguration(0, 0, 0, 50, 170, 125, 0, 0);
-
 		configs[11] = new PageConfiguration(160, 0, 300, 200);
 		configs[12] = new PageConfiguration(5, 0, 330, 220);
 		configs[13] = new PageConfiguration(5, 0, 330, 220);
@@ -280,14 +274,21 @@ public class GuiSurgery extends GuiContainer
 		configs[18] = new PageConfiguration(0, 0, 0, 50, 190, 180, 0, 0);
 		configs[19] = new PageConfiguration(0, 0, 0, 50, 170, 180, 0, 0);
 		configs[20] = new PageConfiguration(0, 0, 0, 50, 170, 180, 0, 0);
-
 		configs[21] = new PageConfiguration(-70, 0, 180, 200);
 		configs[22] = new PageConfiguration(-70, 0, 120, 220);
-		
 		configs[23] = new PageConfiguration(10, 0, 20, 200);
 		configs[24] = new PageConfiguration(10, 0, -30, 220);
+		return configs;
+	}
+	
+	public GuiSurgery(InventoryPlayer inventoryPlayer, TileEntitySurgery surgery)
+	{
+		super(new ContainerSurgery(inventoryPlayer, surgery));
+		
+		this.surgery = surgery;
+		this.ySize = 222;
 
-		current = ease = target = configs[0].copy();
+		current = ease = target = CONFIGS[0].copy();
 	}
 		
 	@Override
@@ -307,9 +308,9 @@ public class GuiSurgery extends GuiContainer
 		back.visible = false;
 		
 		buttonList.add(bodyIcons[6] = new GuiButtonSurgery(7, 
-				xLeft + (int) (xSize / 2 + configs[0].boxX - (configs[0].boxWidth / 2)),
-				yTop + (int) ((125F / 2F) + 3F + configs[0].boxY - (configs[0].boxHeight / 2)),
-				(int) configs[0].boxWidth, (int) configs[0].boxHeight)); // CAW
+				xLeft + (int) (xSize / 2 + CONFIGS[0].boxX - (CONFIGS[0].boxWidth / 2)),
+				yTop + (int) ((125F / 2F) + 3F + CONFIGS[0].boxY - (CONFIGS[0].boxHeight / 2)),
+				(int) CONFIGS[0].boxWidth, (int) CONFIGS[0].boxHeight)); // CAW
 
 		buttonList.add(headIcons[0] = new GuiButtonSurgeryLocation(11, -2F, 19, 0));
 		buttonList.add(headIcons[1] = new GuiButtonSurgeryLocation(12, 4F, 21, 2.F));
@@ -338,7 +339,7 @@ public class GuiSurgery extends GuiContainer
 				
 				page = 0;
 				showHideRelevantButtons(true);
-				ease = current = configs[0].copy();
+				ease = current = CONFIGS[0].copy();
 
 				return;
 			}
@@ -347,7 +348,7 @@ public class GuiSurgery extends GuiContainer
 				if ( targetPage >= 18
 				  && targetPage <= 20 )
 				{
-					ease = current = configs[targetPage].copy();
+					ease = current = CONFIGS[targetPage].copy();
 					page = targetPage;
 					showHideRelevantButtons(true);
 					return;
@@ -356,12 +357,12 @@ public class GuiSurgery extends GuiContainer
 				{
 					if (time == 0)
 					{
-						ease = current = configs[targetPage].copy();
+						ease = current = CONFIGS[targetPage].copy();
 						page = targetPage;
 						showHideRelevantButtons(true);
 						return;
 					}
-					ease = current = configs[0].copy();
+					ease = current = CONFIGS[0].copy();
 				}
 			}
 
@@ -452,7 +453,7 @@ public class GuiSurgery extends GuiContainer
 		
 		showHideRelevantButtons(false);
 		page = targetPage;
-		target = configs[page].copy();
+		target = CONFIGS[page].copy();
 		if (page == 0)
 		{
 			back.visible = false;
@@ -936,14 +937,14 @@ public class GuiSurgery extends GuiContainer
 		
 					GlStateManager.pushMatrix();
 					drawTexturedModalRect(0, 0, 0, 0, 1, 1);
-					GlStateManager.translate((configs[0].boxWidth / 2F), -12F, 0F);
+					GlStateManager.translate((CONFIGS[0].boxWidth / 2F), -12F, 0F);
 					GlStateManager.scale(1F, 12F, 1F);
 					drawTexturedModalRect(0, 0, 0, 0, 1, 1);
 					GlStateManager.popMatrix();
 					
 					GlStateManager.pushMatrix();
 					drawTexturedModalRect(0, 0, 0, 0, 1, 1);
-					GlStateManager.translate((configs[0].boxWidth / 2F) + 1, -12F, 0F);
+					GlStateManager.translate((CONFIGS[0].boxWidth / 2F) + 1, -12F, 0F);
 					GlStateManager.scale(25F, 1F, 1F);
 					drawTexturedModalRect(0, 0, 0, 0, 1, 1);
 					GlStateManager.popMatrix();
@@ -1153,8 +1154,6 @@ public class GuiSurgery extends GuiContainer
 		GlStateManager.rotate(10.0F, 1.0F, 0.0F, 0.0F);
 		GlStateManager.rotate(rotation, 0.0F, 1.0F, 0.0F);
 		RenderHelper.enableStandardItemLighting();
-		float f1 = 0.7F;
-		GlStateManager.glLightModel(2899, RenderHelper.setColorBuffer(f1, f1, f1, 1.0F));
 		model.render(null, 0, 0, 0, 0, 0, .0625f);
 		GlStateManager.popMatrix();
 		RenderHelper.disableStandardItemLighting();

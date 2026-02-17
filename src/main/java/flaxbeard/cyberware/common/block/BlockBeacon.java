@@ -65,7 +65,6 @@ public class BlockBeacon extends BlockContainer
 	//private static final AxisAlignedBB ns = new AxisAlignedBB(3F / 16F, 0F, 5F / 16F, 13F / 16F, 1F, 11F / 16F);
 	private static final AxisAlignedBB bound = new AxisAlignedBB(1F / 16F, 0F, 1F / 16F, 15F / 16F, 4F / 16F, 15F / 16F);
 	
-	@SuppressWarnings("deprecation")
 	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -85,14 +84,12 @@ public class BlockBeacon extends BlockContainer
 	}
 	
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean isOpaqueCube(IBlockState state)
 	{
 		return false;
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean isFullCube(IBlockState state)
 	{
@@ -105,7 +102,6 @@ public class BlockBeacon extends BlockContainer
 		return new TileEntityBeacon();
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Nonnull
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state)
@@ -128,7 +124,6 @@ public class BlockBeacon extends BlockContainer
 		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int metadata)
@@ -149,7 +144,6 @@ public class BlockBeacon extends BlockContainer
 		return blockState.getValue(FACING).getIndex();
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Nonnull
 	@Override
 	public IBlockState withRotation(@Nonnull IBlockState blockState, Rotation rotation)
@@ -157,7 +151,6 @@ public class BlockBeacon extends BlockContainer
 		return blockState.withProperty(FACING, rotation.rotate(blockState.getValue(FACING)));
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Nonnull
 	@Override
 	public IBlockState withMirror(@Nonnull IBlockState blockState, Mirror mirrorIn)
