@@ -98,7 +98,6 @@ public class PowerDisplay extends HudElementBase
 		// battery foreground
 		ClientUtils.drawTexturedModalRect(xOffset, y + 2 + (21 - yBatterySize), 26 + uOffset, 2 + (21 - yBatterySize), 13, yBatterySize + 2);
 		
-		// storage stats
 		String textPowerStorage = cache_power_stored + " / " + cache_power_capacity;
 		int xPowerStorage = isRightAnchored ? x + getWidth() - 15 - fontRenderer.getStringWidth(textPowerStorage) : x + 15;
 		fontRenderer.drawStringWithShadow(textPowerStorage, xPowerStorage, y + 4, colorHex);

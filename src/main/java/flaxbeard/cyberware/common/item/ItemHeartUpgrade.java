@@ -165,13 +165,15 @@ public class ItemHeartUpgrade extends ItemCyberware
 			if (isStemWorking(entityLivingBase))
 			{
 				int t = getMedkitTime(entityLivingBase);
+				Float storedDamage = damageMedkit.get(entityLivingBase.getUniqueID());
 				if ( t >= 100
-				  && damageMedkit.get(entityLivingBase.getUniqueID()) > 0F )
+				  && storedDamage != null
+				  && storedDamage > 0F )
 				{
 					CyberwarePacketHandler.INSTANCE.sendToAllAround(new ParticlePacket(0, (float) entityLivingBase.posX, (float) entityLivingBase.posY + entityLivingBase.height / 2F, (float) entityLivingBase.posZ), 
 							new TargetPoint(entityLivingBase.world.provider.getDimension(), entityLivingBase.posX, entityLivingBase.posY, entityLivingBase.posZ, 20));
 
-					entityLivingBase.heal(damageMedkit.get(entityLivingBase.getUniqueID()));
+					entityLivingBase.heal(storedDamage);
 					timesMedkit.put(entityLivingBase.getUniqueID(), 0);
 					damageMedkit.put(entityLivingBase.getUniqueID(), 0F);
 				}
@@ -284,12 +286,13 @@ public class ItemHeartUpgrade extends ItemCyberware
 	{
 		if (entityLivingBase != null)
 		{
-			if (!timesPlatelets.containsKey(entityLivingBase.getUniqueID()))
+			Integer storedTime = timesPlatelets.get(entityLivingBase.getUniqueID());
+			if (storedTime == null)
 			{
 				timesPlatelets.put(entityLivingBase.getUniqueID(), entityLivingBase.ticksExisted);
 				return 0;
 			}
-			return entityLivingBase.ticksExisted - timesPlatelets.get(entityLivingBase.getUniqueID());
+			return entityLivingBase.ticksExisted - storedTime;
 		}
 		return 0;
 	}
@@ -298,13 +301,14 @@ public class ItemHeartUpgrade extends ItemCyberware
 	{
 		if (entityLivingBase != null)
 		{
-			if (!timesMedkit.containsKey(entityLivingBase.getUniqueID()))
+			Integer storedTime = timesMedkit.get(entityLivingBase.getUniqueID());
+			if (storedTime == null)
 			{
 				timesMedkit.put(entityLivingBase.getUniqueID(), entityLivingBase.ticksExisted);
 				damageMedkit.put(entityLivingBase.getUniqueID(), 0F);
 				return 0;
 			}
-			return entityLivingBase.ticksExisted - timesMedkit.get(entityLivingBase.getUniqueID());
+			return entityLivingBase.ticksExisted - storedTime;
 		}
 		return 0;
 	}
