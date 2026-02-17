@@ -26,7 +26,6 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 import flaxbeard.cyberware.Cyberware;
 import flaxbeard.cyberware.api.CyberwareAPI;
@@ -634,8 +633,10 @@ public class CyberwareContent
             List<Biome> listBiomes = new ArrayList<>();
             StringBuilder strBiomes = new StringBuilder();
             
-            for (Biome biome : net.minecraftforge.registries.ForgeRegistries.BIOMES)
+            for (Object obj : Biome.REGISTRY)
             {
+                if (!(obj instanceof Biome)) continue;
+                Biome biome = (Biome) obj;
                 if (biome.getRegistryName() != null 
                     && !biome.getRegistryName().getPath().contains("nether") 
                     && !biome.getRegistryName().getPath().contains("end"))
