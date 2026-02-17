@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import flaxbeard.cyberware.api.CyberwareAPI;
 import flaxbeard.cyberware.api.item.ICyberware.Quality;
 import flaxbeard.cyberware.api.item.ICyberware;
@@ -47,7 +48,7 @@ public class TabCyberware extends CreativeTabs
 		
 		Quality q = CreativeMenuHandler.pageSelected == 0 ? CyberwareAPI.QUALITY_SCAVENGED : CyberwareAPI.QUALITY_MANUFACTURED;
 		
-		for (Item item : Item.REGISTRY)
+		for (Item item : ForgeRegistries.ITEMS)
 		{
 			if (item == null)
 			{
